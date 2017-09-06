@@ -49,7 +49,6 @@ before_install:
   - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
   - repo sync -j8
   - repo forall -c repo start $TRAVIS_BRANCH .
-  - repo forall -c git pull github
 
 before_script:
   - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
