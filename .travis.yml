@@ -17,25 +17,6 @@ os:
   - osx
 
 matrix:
-  include:
-    - os: linux
-      dist: trusty
-      compiler: gcc
-      env: 
-        - CXX=/usr/bin/g++-7
-        - CC=/usr/bin/gcc-7
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - gcc-7
-            - g++-7
-    - os: linux
-      dist: trusty
-      compiler: clang
-
-matrix:
   allow_failures:
     - os: osx
 
@@ -53,6 +34,8 @@ addons:
    - ninja-build
 
 before_install:
+  - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
+  - if [[ "$CXX" != "clang++" ]]; then sudo apt-get install g++-7; fi
   - mkdir -p ~/bin
   - PATH=~/bin:$PATH
   - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
