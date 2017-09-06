@@ -28,7 +28,7 @@ before_install:
   - PATH=~/bin:$PATH
   - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
   - chmod a+x ~/bin/repo
-  - repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
+  - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
   - repo sync -j8
   - repo forall -c repo start $TRAVIS_BRANCH .
   - repo forall -c git pull github
