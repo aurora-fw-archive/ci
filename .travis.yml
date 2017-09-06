@@ -65,9 +65,15 @@ before_script:
       wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
       sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
     fi;
+  - cd $TRAVIS_BUILD_DIR/external
+  - git clone https://git.savannah.gnu.org/git/gettext.git
+  - ./autogen.sh
+  - ./configure
+  - make
+  - sudo make install
   - cd $TRAVIS_BUILD_DIR/external/gtk3
   - ./autogen.sh
-  - ./configure --prefix=/usr
+  - ./configure
   - make
   - sudo make install
   - cd $TRAVIS_BUILD_DIR/external/glfw
