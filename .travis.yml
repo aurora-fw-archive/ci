@@ -1,0 +1,31 @@
+# ┌─┐┬ ┬┬─┐┌─┐┬─┐┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐┬┌─
+# ├─┤│ │├┬┘│ │├┬┘├─┤  ├┤ ├┬┘├─┤│││├┤ ││││ │├┬┘├┴┐
+# ┴ ┴└─┘┴└─└─┘┴└─┴ ┴  └  ┴└─┴ ┴┴ ┴└─┘└┴┘└─┘┴└─┴ ┴
+# A Powerful General Purpose Framework
+# More information in: https://aurora-fw.github.io/
+#
+# Copyright (C) 2017 Aurora Framework, All rights reserved.
+
+language: cpp
+
+compiler:
+  - clang
+  - gcc
+
+os:
+  - linux
+  - osx
+
+matrix:
+  allow_failures:
+    - os: osx
+
+dist: trusty
+sudo: required
+
+notifications:
+    email:
+        recipients:
+            - auroraframework@gmail.com
+    on_success: never
+    on_failure: always
