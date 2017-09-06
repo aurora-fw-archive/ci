@@ -54,6 +54,12 @@ before_install:
 before_script:
   - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
   - if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi
+  - cd $TRAVIS_BUILD_DIR/external
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+      wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+    fi;
   - cd $TRAVIS_BUILD_DIR/external/glfw
   - mkdir -p build && cd build
   - cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ..
@@ -64,9 +70,8 @@ script:
   - cd $TRAVIS_BUILD_DIR
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
-  - ninja
+  - ninja && sudo ninja install
   - ninja documentation
-  - sudo ninja install
 
 notifications:
     email:
