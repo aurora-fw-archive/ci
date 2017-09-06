@@ -50,9 +50,13 @@ before_install:
   - repo sync -j8
   - repo forall -c repo start $TRAVIS_BRANCH .
   - repo forall -c git pull github
-
-install:
-  - 
+  
+script:
+  - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
+  - make
+  - make documentation
+  - sudo make install
 
 notifications:
     email:
