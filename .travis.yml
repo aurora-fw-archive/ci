@@ -54,10 +54,11 @@ before_install:
 before_script:
   - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
   - if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi
-  - git clone https://github.com/glfw/glfw.git ~/glfw/glfw
-  - mkdir ~/glfw/glfw/build
-  - cd ~/glfw/glfw/build && cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ~/glfw/glfw/
-  - cd ~/glfw/glfw/build && cmake --build .
+  - cd $TRAVIS_BUILD_DIR/external/glfw
+  - mkdir -p build && cd build
+  - cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ..
+  - cmake --build .
+  - sudo make install
 
 script:
   - cd $TRAVIS_BUILD_DIR
