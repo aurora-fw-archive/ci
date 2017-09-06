@@ -26,12 +26,18 @@ sudo: required
 addons:
  apt:
    sources:
+   - kubuntu-backports
    - ubuntu-toolchain-r-test
    packages:
    - build-essential
    - libgtk-3-dev
    - pkg-config
    - ninja-build
+   - cmake
+   - libxrandr-dev
+   - libxinerama-dev
+   - libxcursor-dev
+   - libxi-dev
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
@@ -48,6 +54,10 @@ before_install:
 before_script:
   - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
   - if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi
+  - git clone https://github.com/glfw/glfw.git ~/glfw/glfw
+  - mkdir ~/glfw/glfw/build
+  - cd ~/glfw/glfw/build && cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ~/glfw/glfw/
+  - cd ~/glfw/glfw/build && cmake --build .
 
 script:
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
