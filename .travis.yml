@@ -38,6 +38,7 @@ addons:
    - libxinerama-dev
    - libxcursor-dev
    - libxi-dev
+   - libglew-dev
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
