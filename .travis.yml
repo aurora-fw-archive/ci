@@ -30,7 +30,6 @@ addons:
    - ubuntu-toolchain-r-test
    packages:
    - build-essential
-#   - libgtk-3-dev
    - pkg-config
    - ninja-build
    - cmake
@@ -39,6 +38,10 @@ addons:
    - libxcursor-dev
    - libxi-dev
    - libglew-dev
+   - libxkbcommon-dev
+   - libwayland-dev
+   - libmirclient-dev
+   - libx11-xcb-dev
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
@@ -52,15 +55,18 @@ before_install:
   - repo forall -c repo start $TRAVIS_BRANCH .
 
 before_script:
-  - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
-  - if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi
-  - cd $TRAVIS_BUILD_DIR/external
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi;
+      if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi;
+      cd $TRAVIS_BUILD_DIR/external;
       wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
       wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
-      wget http://mirrors.kernel.org/ubuntu/pool/universe/g/gtk%2B3.0/libgtk-3-0-udeb_3.22.19-0ubuntu1_amd64.udeb;
-      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libgtk-3-0-udeb_3.22.19-0ubuntu1_amd64.udeb;
+      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
     fi;
+  - cd $TRAVIS_BUILD_DIR/external/gtk3
+  - ./configure --prefix=/usr
+  - make
+  - sudo make install
   - cd $TRAVIS_BUILD_DIR/external/glfw
   - mkdir -p build && cd build
   - cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ..
