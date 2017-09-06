@@ -21,13 +21,14 @@ matrix:
     - os: linux
       dist: trusty
       env: 
-        - CXX=g++-7
-        - CC=gcc-7
+        - CXX=/usr/bin/g++-7
+        - CC=/usr/bin/gcc-7
 
 matrix:
   allow_failures:
     - os: osx
 
+dist: trusty
 sudo: required
 
 addons:
@@ -40,6 +41,7 @@ addons:
    - build-essential
    - libgtk-3-dev
    - pkg-config
+   - ninja-build
 
 before_install:
   - mkdir -p ~/bin
@@ -50,7 +52,11 @@ before_install:
   - repo sync -j8
   - repo forall -c repo start $TRAVIS_BRANCH .
   - repo forall -c git pull github
-  
+
+#before_script:
+#  - export CC=/usr/bin/gcc-7
+#  - export CXX=/usr/bin/g++-7
+
 script:
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
   - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
