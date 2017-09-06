@@ -43,6 +43,7 @@ addons:
    - libmirclient-dev
    - libx11-xcb-dev
    - gtk-doc-tools
+   - libgirepository1.0-dev
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
