@@ -62,9 +62,9 @@ before_install:
   - repo forall -c repo start $TRAVIS_BRANCH .
   - repo forall -c git pull github
 
-#before_script:
-#  - export CC=/usr/bin/gcc-7
-#  - export CXX=/usr/bin/g++-7
+before_script:
+  - if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi
+  - if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi
 
 script:
   - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
