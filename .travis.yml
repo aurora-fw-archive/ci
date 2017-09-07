@@ -33,7 +33,7 @@ addons:
    - ninja-build
    - cmake
    - doxygen
-   - libglew
+   - libglew1.10
    - libglew-dev
 
 before_install:
