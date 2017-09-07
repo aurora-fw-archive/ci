@@ -46,6 +46,7 @@ addons:
    - libgirepository1.0-dev
    - gperf
    - texinfo
+   - groff
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
