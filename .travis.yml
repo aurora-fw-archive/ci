@@ -45,6 +45,7 @@ addons:
    - gtk-doc-tools
    - libgirepository1.0-dev
    - gperf
+   - texinfo
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
