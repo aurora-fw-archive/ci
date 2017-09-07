@@ -26,27 +26,15 @@ sudo: required
 addons:
  apt:
    sources:
-   - kubuntu-backports
    - ubuntu-toolchain-r-test
    packages:
    - build-essential
    - pkg-config
    - ninja-build
    - cmake
-   - libxrandr-dev
-   - libxinerama-dev
-   - libxcursor-dev
-   - libxi-dev
+   - doxygen
+   - libglew
    - libglew-dev
-   - libxkbcommon-dev
-   - libwayland-dev
-   - libmirclient-dev
-   - libx11-xcb-dev
-   - gtk-doc-tools
-   - libgirepository1.0-dev
-   - gperf
-   - texinfo
-   - groff
 
 before_install:
   - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
@@ -64,27 +52,14 @@ before_script:
       if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi;
       if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi;
       cd $TRAVIS_BUILD_DIR/external;
-      wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
-      wget http://mirrors.kernel.org/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
-      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-0_3.22.19-0ubuntu1_amd64.deb
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/g/glfw3/libglfw3-dev_3.2.1-1_amd64.deb
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/g/glfw3/libglfw3_3.2.1-1_amd64.deb
+      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libglfw3_3.2.1-1_amd64.deb libglfw3-dev_3.2.1-1_amd64.deb libgtk-3-0_3.22.19-0ubuntu1_amd64.deb libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb;
     fi;
-  - cd $TRAVIS_BUILD_DIR/external
-  - git clone https://git.savannah.gnu.org/git/gettext.git
-  - cd gettext
-  - ./autogen.sh
-  - ./configure
-  - make
-  - sudo make install
-  - cd $TRAVIS_BUILD_DIR/external/gtk3
-  - ./autogen.sh
-  - ./configure
-  - make
-  - sudo make install
-  - cd $TRAVIS_BUILD_DIR/external/glfw
-  - mkdir -p build && cd build
-  - cmake -DCMAKE_VERBOSE_MAKEFILE=ON -DBUILD_SHARED_LIBS=${BUILD_SHARED_LIBS} ..
-  - cmake --build .
-  - sudo make install
 
 script:
   - cd $TRAVIS_BUILD_DIR
