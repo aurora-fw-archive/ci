@@ -67,6 +67,7 @@ before_script:
     fi;
   - cd $TRAVIS_BUILD_DIR/external
   - git clone https://git.savannah.gnu.org/git/gettext.git
+  - cd gettext
   - ./autogen.sh
   - ./configure
   - make
