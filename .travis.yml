@@ -63,13 +63,16 @@ before_script:
       wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/g/glfw3/libglfw3_3.2.1-1_amd64.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-common_3.22.19-0ubuntu1_all.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-0_2.16.0-2build1_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-data_2.16.0-2build1_all.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-dev_2.16.0-2build1_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/gir1.2-atk-1.0_2.16.0-2build1_amd64.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/glib2.0/libglib2.0-0_2.50.0-1_amd64.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/f/fontconfig/libfontconfig1_2.11.94-0ubuntu2_amd64.deb;
+      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/f/fontconfig/fontconfig-config_2.11.94-0ubuntu2_all.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/colord/libcolord2_1.2.8-0ubuntu1_amd64.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/cairo/libcairo2_1.14.2-2ubuntu2_amd64.deb;
       
-      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libglfw3_3.2.1-1_amd64.deb libglfw3-dev_3.2.1-1_amd64.deb libgtk-3-common_3.22.19-0ubuntu1_all.deb libatk1.0-0_2.16.0-2build1_amd64.deb libatk1.0-dev_2.16.0-2build1_amd64.deb glib2.0/libglib2.0-0_2.50.0-1_amd64.deb libfontconfig1_2.11.94-0ubuntu2_amd64.deb libcolord2_1.2.8-0ubuntu1_amd64.deb libcairo2_1.14.2-2ubuntu2_amd64.deb libgtk-3-0_3.22.19-0ubuntu1_amd64.deb libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb;
+      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libglfw3_3.2.1-1_amd64.deb libglfw3-dev_3.2.1-1_amd64.deb libgtk-3-common_3.22.19-0ubuntu1_all.deb libatk1.0-data_2.16.0-2build1_all.deb gir1.2-atk-1.0_2.16.0-2build1_amd64.deb libatk1.0-0_2.16.0-2build1_amd64.deb libatk1.0-dev_2.16.0-2build1_amd64.deb libglib2.0-0_2.50.0-1_amd64.deb fontconfig-config_2.11.94-0ubuntu2_all.deb libfontconfig1_2.11.94-0ubuntu2_amd64.deb libcolord2_1.2.8-0ubuntu1_amd64.deb libcairo2_1.14.2-2ubuntu2_amd64.deb libgtk-3-0_3.22.19-0ubuntu1_amd64.deb libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb;
     fi;
 
 script:
