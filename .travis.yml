@@ -61,8 +61,9 @@ before_script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi;
       if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi;
-      add-apt-repository 'deb http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
-      add-apt-repository 'deb-src http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
+      sudo add-apt-repository 'deb http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
+      sudo add-apt-repository 'deb-src http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
+      sudo apt-get update;
       cd $TRAVIS_BUILD_DIR/external;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
       wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
