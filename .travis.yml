@@ -12,34 +12,40 @@ compiler:
   - clang
   - gcc
 
-os:
-  - linux
-  - osx
-
 matrix:
-  allow_failures:
-    - os: osx
+    allow_failures:
+       - os: osx
+    include:
+        - os: linux
+          sudo: required
+          env:
+            - AURORA_CI_GLFW_VERSION=glfw-x11
+            - AURORA_CI_GLFW_VERSION=glfw-wayland
+          arch:
+            packages:
+              - gtk3
+              - ninja
+              - vulkan-headers
+              - $AURORA_CI_GLFW_VERSION
+              - glew
+              - cmake
+              - doxygen
+              - repo
+            script:
+              - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
+              - repo sync
+              - sudo repo forall -c repo start $TRAVIS_BRANCH .
+              - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON .; fi
+              - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release .; fi
+              - ninja && sudo ninja install
+              - ninja documentation
+        - os: osx
 
-sudo: required
 
-arch:
-  packages:
-    - gtk3
-    - ninja
-    - vulkan-headers
-    - glfw-x11
-    - cmake
-    - doxygen
-    - repo
+  
 
-  script:
-    - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
-    - repo sync
-    - sudo repo forall -c repo start $TRAVIS_BRANCH .
-    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
-    - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
-    - ninja && sudo ninja install
-    - ninja documentation
+
+
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
