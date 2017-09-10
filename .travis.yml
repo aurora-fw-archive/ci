@@ -27,6 +27,7 @@ arch:
     - gtk3
     - ninja
     - vulkan-headers
+    - glfw-x11
     - cmake
     - doxygen
     - repo
