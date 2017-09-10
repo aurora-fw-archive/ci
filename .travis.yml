@@ -30,6 +30,7 @@ arch:
     - cmake
     - doxygen
     - repo
+    - python
 
   script:
     - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
