@@ -41,12 +41,6 @@ matrix:
               - make documentation
         - os: osx
 
-
-  
-
-
-
-
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
