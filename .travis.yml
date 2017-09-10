@@ -29,6 +29,7 @@ arch:
     - vulkan-headers
     - cmake
     - doxygen
+    - git
 
   script:
     - mkdir -p ~/bin
