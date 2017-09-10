@@ -30,6 +30,7 @@ arch:
     - cmake
     - doxygen
     - git
+    - python2
 
   script:
     - mkdir -p ~/bin
