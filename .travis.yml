@@ -31,6 +31,7 @@ arch:
     - doxygen
     - git
     - python2
+    - python
 
   script:
     - mkdir -p ~/bin
