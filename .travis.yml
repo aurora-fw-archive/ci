@@ -20,90 +20,31 @@ matrix:
   allow_failures:
     - os: osx
 
-dist: trusty
 sudo: required
 
-addons:
- apt:
-   sources:
-   - ubuntu-toolchain-r-test
-   packages:
-   - build-essential
-   - pkg-config
-   - ninja-build
-   - cmake
-   - doxygen
-   - libglew1.10
-   - libglew-dev
-   - libatk-bridge2.0-dev
-   - libjson-glib-1.0-0
-   - libepoxy0
-   - libepoxy-dev
-   - librest-0.7-0
-   - libxinerama-dev
-   - libxrandr-dev
-   - libxcursor-dev
-   - libxi-dev
-   - libprotobuf-dev
+arch:
+  packages:
+    - gtk3
+    - ninja
+    - vulkan-headers
+    - cmake
+    - doxygen
+    - repo
 
-before_install:
-  - if [[ "$CC" != "clang" ]]; then sudo apt-get install gcc-7; fi
-  - if [[ "$CXX" != "clang++" ]]; then sudo apt-get install g++-7; fi
-  - mkdir -p ~/bin
-  - PATH=~/bin:$PATH
-  - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-  - chmod a+x ~/bin/repo
-  - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
-  - repo sync -j8
-  - repo forall -c repo start $TRAVIS_BRANCH .
-
-before_script:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      if [[ "$CC" != "clang" ]]; then export CC=/usr/bin/gcc-7; fi;
-      if [[ "$CXX" != "clang++" ]]; then export CXX=/usr/bin/g++-7; fi;
-      sudo add-apt-repository 'deb http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
-      sudo add-apt-repository 'deb-src http://no.archive.ubuntu.com/ubuntu/ artful main restricted';
-      sudo apt-get update;
-      cd $TRAVIS_BUILD_DIR/external;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/v/vulkan/libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-0_3.22.19-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/gir1.2-gtk-3.0_3.22.19-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/g/glfw3/libglfw3-dev_3.2.1-1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/universe/g/glfw3/libglfw3_3.2.1-1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/gtk+3.0/libgtk-3-common_3.22.19-0ubuntu1_all.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-0_2.16.0-2build1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-data_2.16.0-2build1_all.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/libatk1.0-dev_2.16.0-2build1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/a/atk1.0/gir1.2-atk-1.0_2.16.0-2build1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/g/glib2.0/libglib2.0-0_2.50.0-1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/f/fontconfig/libfontconfig1_2.11.94-0ubuntu2_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/f/fontconfig/fontconfig-config_2.11.94-0ubuntu2_all.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/colord/libcolord2_1.2.8-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/cairo/libcairo2_1.14.2-2ubuntu2_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/cairo/libcairo2-dev_1.14.2-2ubuntu2_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/cairo/libcairo-script-interpreter2_1.14.2-2ubuntu2_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/c/cairo/libcairo-gobject2_1.14.2-2ubuntu2_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmirclient9_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmirclient-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircookie2_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircookie-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircommon7_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircommon-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircore-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmircore1_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-      wget https://aurora-fw.github.io/archive/ubuntu/pool/main/m/mir/libmirprotobuf3_0.27.0+17.10.20170630-0ubuntu1_amd64.deb;
-
-      sudo dpkg -i libvulkan1_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libvulkan-dev_1.0.42.0+dfsg1-1ubuntu1~16.04.1_amd64.deb libmircore1_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmircore-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmircommon-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmircommon7_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmirprotobuf3_0.27.0+17.10.20170630-0ubuntu1_amd64.deb gir1.2-gtk-3.0_3.22.19-0ubuntu1_amd64.deb libmircookie-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmircookie2_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmirclient-dev_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libmirclient9_0.27.0+17.10.20170630-0ubuntu1_amd64.deb libglfw3_3.2.1-1_amd64.deb libglfw3-dev_3.2.1-1_amd64.deb libcairo-script-interpreter2_1.14.2-2ubuntu2_amd64.deb libcairo-gobject2_1.14.2-2ubuntu2_amd64.deb libcairo2-dev_1.14.2-2ubuntu2_amd64.deb libgtk-3-common_3.22.19-0ubuntu1_all.deb libatk1.0-data_2.16.0-2build1_all.deb gir1.2-atk-1.0_2.16.0-2build1_amd64.deb libatk1.0-0_2.16.0-2build1_amd64.deb libatk1.0-dev_2.16.0-2build1_amd64.deb libglib2.0-0_2.50.0-1_amd64.deb fontconfig-config_2.11.94-0ubuntu2_all.deb libfontconfig1_2.11.94-0ubuntu2_amd64.deb libcolord2_1.2.8-0ubuntu1_amd64.deb libcairo2_1.14.2-2ubuntu2_amd64.deb libgtk-3-0_3.22.19-0ubuntu1_amd64.deb libgtk-3-dev_3.22.19-0ubuntu1_amd64.deb;
-    fi;
+  script:
+    - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
+    - repo sync -j8
+    - repo forall -c repo start $TRAVIS_BRANCH .
+    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
+    - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
+    - ninja && sudo ninja install
+    - ninja documentation
 
 script:
-  - cd $TRAVIS_BUILD_DIR
-  - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
-  - ninja && sudo ninja install
-  - ninja documentation
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      git clone https://github.com/aurora-fw/arch-travis.git .;
+      bash arch-travis.sh;
+    fi;
 
 notifications:
     email:
