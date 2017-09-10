@@ -37,8 +37,8 @@ matrix:
               - sudo repo forall -c repo start $TRAVIS_BRANCH .
               - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON .; fi
               - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release .; fi
-              - ninja && sudo ninja install
-              - ninja documentation
+              - make && sudo make install
+              - make documentation
         - os: osx
 
 
