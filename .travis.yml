@@ -42,8 +42,7 @@ arch:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      git clone https://github.com/aurora-fw/arch-travis.git .;
-      bash arch-travis.sh;
+      curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
     fi;
 
 notifications:
