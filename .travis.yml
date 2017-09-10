@@ -30,11 +30,13 @@ arch:
     - cmake
     - doxygen
     - repo
+    - screenfetch
 
   script:
+    - screenfetch
     - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
-    - repo sync -j1
-    - repo forall -j1 -c repo start $TRAVIS_BRANCH .
+    - repo sync
+    - repo forall -c repo start $TRAVIS_BRANCH .
     - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
     - ninja && sudo ninja install
