@@ -29,13 +29,16 @@ arch:
     - vulkan-headers
     - cmake
     - doxygen
-    - repo
     - python
 
   script:
+    - mkdir ~/bin
+    - PATH=~/bin:$PATH
+    - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+    - chmod a+x ~/bin/repo
     - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
     - repo sync -j8
-    - repo forall -c repo start master .
+    - repo forall -c repo start $TRAVIS_BRANCH .
     - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -GNinja -DAURORA_BUILD_TEST_APPS=ON .; fi
     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release -GNinja .; fi
     - ninja && sudo ninja install
