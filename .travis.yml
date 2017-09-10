@@ -29,15 +29,9 @@ arch:
     - vulkan-headers
     - cmake
     - doxygen
-    - git
-    - python2
-    - python
+    - repo
 
   script:
-    - mkdir -p ~/bin
-    - PATH=~/bin:$PATH
-    - curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
-    - chmod a+x ~/bin/repo
     - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
     - repo sync -j1
     - repo forall -j1 -c repo start $TRAVIS_BRANCH .
