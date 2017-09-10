@@ -34,6 +34,8 @@ arch:
 
   script:
     - screenfetch
+    - sudo rm -rf /dev/shm
+    - sudo ln -s /run/shm /dev/shm
     - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
     - repo sync
     - repo forall -c repo start $TRAVIS_BRANCH .
