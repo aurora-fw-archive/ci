@@ -8,15 +8,14 @@
 
 language: cpp
 
-compiler:
-  - clang
-  - gcc
-
 matrix:
     allow_failures:
        - os: osx
     include:
         - os: linux
+          compiler:
+            - clang
+            - gcc
           sudo: required
           env:
             - AURORA_CI_GLFW_VERSION=glfw-x11
