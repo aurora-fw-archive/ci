@@ -44,9 +44,9 @@ arch:
     - doxygen
     - repo
   script:
-    - yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH
+    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; fi
+    - if [[ "$TRAVIS_BRANCH" == "master" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
     - repo sync
-    - sudo repo forall -c git checkout $TRAVIS_BRANCH
     - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON .; fi
     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release .; fi
     - make && sudo make install
