@@ -11,7 +11,7 @@ language: cpp
 matrix:
   allow_failures:
     - os: osx
-    - compiler: clang
+
   include:
     - os: linux
       compiler: clang
