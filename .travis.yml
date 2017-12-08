@@ -9,71 +9,71 @@
 language: cpp
 
 matrix:
-	allow_failures:
-		- os: osx
-		- compiler: clang
-	include:
-		- os: linux
-		  compiler: clang
-		  sudo: required
-		  env: AURORA_CI_GLFW_VERSION=glfw-x11
-		- os: linux
-		  compiler: gcc
-		  sudo: required
-		  env: AURORA_CI_GLFW_VERSION=glfw-x11
-		- os: linux
-		  compiler: clang
-		  sudo: required
-		  env: AURORA_CI_GLFW_VERSION=glfw-wayland
-		- os: linux
-		  compiler: gcc
-		  sudo: required
-		  env: AURORA_CI_GLFW_VERSION=glfw-wayland
-		- os: osx
-		  compiler: gcc
-		- os: osx
-		  compiler: clang
+  allow_failures:
+    - os: osx
+    - compiler: clang
+  include:
+    - os: linux
+      compiler: clang
+      sudo: required
+      env: AURORA_CI_GLFW_VERSION=glfw-x11
+    - os: linux
+      compiler: gcc
+      sudo: required
+      env: AURORA_CI_GLFW_VERSION=glfw-x11
+    - os: linux
+      compiler: clang
+      sudo: required
+      env: AURORA_CI_GLFW_VERSION=glfw-wayland
+    - os: linux
+      compiler: gcc
+      sudo: required
+      env: AURORA_CI_GLFW_VERSION=glfw-wayland
+    - os: osx
+      compiler: gcc
+    - os: osx
+      compiler: clang
 
 arch:
-	packages:
-		- gtk3
-		- ninja
-		- vulkan-headers
-		- $AURORA_CI_GLFW_VERSION
-		- glew
-		- cmake
-		- freeimage
-		- libsndfile
-		- portaudio
-		- doxygen
-		- repo
-		- lcov
-	script:
-		- if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; fi
-		- if [[ "$TRAVIS_BRANCH" == "master" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
-		- repo sync
-		- if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON .; fi
-		- if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release .; fi
-		- make && sudo make install
-		- make documentation
+  packages:
+    - gtk3
+    - ninja
+    - vulkan-headers
+    - $AURORA_CI_GLFW_VERSION
+    - glew
+    - cmake
+    - freeimage
+    - libsndfile
+    - portaudio
+    - doxygen
+    - repo
+    - lcov
+  script:
+    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; fi
+    - if [[ "$TRAVIS_BRANCH" == "master" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
+    - repo sync
+    - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then cmake -DCMAKE_BUILD_TYPE=Debug -DAURORA_BUILD_TEST_APPS=ON .; fi
+    - if [[ "$TRAVIS_BRANCH" == "master" ]]; then cmake -DCMAKE_BUILD_TYPE=Release .; fi
+    - make && sudo make install
+    - make documentation
 
 script:
-	- if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-		curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
-	  fi;
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
+      curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
+    fi;
 
 after_success:
-	# Create lcov report
-	- cd ${TRAVIS_BUILD_DIR}
-	- lcov --directory . --capture --output-file coverage.info # capture coverage info
-	- lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
-	- lcov --list coverage.info #debug info
-	# Upload lcov report to CodeCov
-	- bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+  # Create lcov report
+  - cd ${TRAVIS_BUILD_DIR}
+  - lcov --directory . --capture --output-file coverage.info # capture coverage info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info # filter out system
+  - lcov --list coverage.info #debug info
+  # Upload lcov report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
 
 notifications:
-	email:
-		recipients:
-			- auroraframework@gmail.com
-	on_success: never
-	on_failure: always
+  email:
+    recipients:
+      - auroraframework@gmail.com
+  on_success: never
+  on_failure: always
