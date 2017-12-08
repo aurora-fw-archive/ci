@@ -55,7 +55,7 @@ arch:
         gcov -n -o . $filename > /dev/null; 
       done
     - codecov
-    - bash <(curl -s https://codecov.io/bash)
+    #- bash <(curl -s https://codecov.io/bash) #upload to codecov
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
