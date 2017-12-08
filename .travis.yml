@@ -50,18 +50,17 @@ arch:
     - make && sudo make install
     - make documentation
     - sudo pip install codecov
-
+    - for filename in `find . | egrep '\.cpp'`; 
+      do
+        gcov -n -o . $filename > /dev/null; 
+      done
+    - codecov
+    - bash <(curl -s https://codecov.io/bash)
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
       curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
     fi;
-  - for filename in `find . | egrep '\.cpp'`; 
-    do
-      gcov -n -o . $filename > /dev/null; 
-    done
-  - codecov
-  - bash <(curl -s https://codecov.io/bash)
 
 notifications:
   email:
