@@ -39,6 +39,8 @@ arch:
     - repo
     - lcov
     - python
+    - python-pip
+
   script:
     - if [[ "$TRAVIS_BRANCH" == "dev" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -m development.xml -b dev; fi
     - if [[ "$TRAVIS_BRANCH" == "master" ]]; then yes | repo init -u https://github.com/aurora-fw/manifest.git -b $TRAVIS_BRANCH; fi
