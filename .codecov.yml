@@ -1,3 +1,11 @@
+# ┌─┐┬ ┬┬─┐┌─┐┬─┐┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┬ ┬┌─┐┬─┐┬┌─
+# ├─┤│ │├┬┘│ │├┬┘├─┤  ├┤ ├┬┘├─┤│││├┤ ││││ │├┬┘├┴┐
+# ┴ ┴└─┘┴└─└─┘┴└─┴ ┴  └  ┴└─┴ ┴┴ ┴└─┘└┴┘└─┘┴└─┴ ┴
+# A Powerful General Purpose Framework
+# More information in: https://aurora-fw.github.io/
+#
+# Copyright (C) 2017 Aurora Framework, All rights reserved.
+
 codecov:
   notify:
     require_ci_to_pass: yes
