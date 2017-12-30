@@ -9,7 +9,7 @@ branches:
 image: Visual Studio 2015
 
 init:
-  - set PATH=%PATH%;C:\msys64\usr\bin;C:\msys64\mingw64\bin
+  - set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
 
 clone_folder: C:\AuroraFW-build\
 
