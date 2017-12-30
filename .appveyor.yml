@@ -23,5 +23,8 @@ install:
 before_build:
   - cmake -DCMAKE_C_COMPILER="gcc.exe" -DCMAKE_CXX_COMPILER="g++.exe" -G"Unix Makefiles" .
 
+build_script:
+  - make
+
 after_build:
   - make install
