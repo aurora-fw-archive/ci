@@ -20,6 +20,7 @@ install:
   - set PATH=%PATH%;C:\AuroraFW-build\bin
   - repo init -u https://github.com/aurora-fw/manifest.git
   - repo sync
+  - pacman -S mingw-w64-x86_64-pkg-config mingw-w64-x86_64-gtk3 mingw-w64-x86_64-freeimage mingw-w64-x86_64-glew mingw-w64-x86_64-glfw
 
 before_build:
   - cmake .
