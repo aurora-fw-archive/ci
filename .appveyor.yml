@@ -8,9 +8,6 @@ branches:
 
 image: Visual Studio 2015
 
-init:
-  - set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
-
 clone_folder: C:\AuroraFW-build\
 
 install:
@@ -20,6 +17,7 @@ install:
   - set PATH=%PATH%;C:\AuroraFW-build\bin
   - repo init -u https://github.com/aurora-fw/manifest.git
   - repo sync
+  - set PATH=C:\msys64\usr\bin;C:\msys64\mingw64\bin;%PATH%
   - pacman -S mingw-w64-x86_64-pkg-config mingw-w64-x86_64-gtk3 mingw-w64-x86_64-freeimage mingw-w64-x86_64-glew mingw-w64-x86_64-glfw --noconfirm
 
 before_build:
