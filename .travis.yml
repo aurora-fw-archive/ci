@@ -24,9 +24,11 @@ matrix:
     - os: linux
       compiler: clang
       sudo: required
+      services: docker
     - os: linux
       compiler: gcc
       sudo: required
+      services: docker
     - os: osx
       compiler: gcc
     - os: osx
