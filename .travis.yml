@@ -70,7 +70,7 @@ arch:
 
 script:
   - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-      curl -s https://raw.githubusercontent.com/aurora-fw/arch-travis/master/arch-travis.sh | bash;
+      curl -s https://raw.githubusercontent.com/aurora-fw/ci_travis_archlinux/master/arch-travis.sh | bash;
     fi;
 
 notifications:
